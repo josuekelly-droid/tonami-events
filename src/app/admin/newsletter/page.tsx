@@ -66,7 +66,7 @@ export default function NewsletterAdmin() {
 
   return (
     <div className="min-h-screen bg-gray-light/10">
-      {/* Header */}
+      
       <header className="bg-secondary border-b border-gray-light/30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16 gap-4">
           <div className="flex items-center gap-2 sm:gap-4 min-w-0">
@@ -82,7 +82,7 @@ export default function NewsletterAdmin() {
         </div>
       </header>
 
-      {/* Contenu */}
+      
       <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {abonnes.length === 0 ? (
           <div className="bg-secondary border border-gray-light/30 rounded-2xl p-12 text-center">
@@ -90,7 +90,7 @@ export default function NewsletterAdmin() {
           </div>
         ) : (
           <>
-            {/* Vue mobile : cartes */}
+            
             <div className="sm:hidden space-y-3">
               {abonnes.map((a) => (
                 <div key={a.id} className="bg-secondary border border-gray-light/30 rounded-xl p-4 flex items-center justify-between gap-3">
@@ -103,7 +103,7 @@ export default function NewsletterAdmin() {
               ))}
             </div>
 
-            {/* Vue desktop : tableau */}
+            
             <div className="hidden sm:block bg-secondary border border-gray-light/30 rounded-2xl overflow-hidden">
               <div className="overflow-x-auto">
                 <table className="w-full text-sm">
