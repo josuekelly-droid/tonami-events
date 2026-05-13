@@ -10,23 +10,23 @@ const equipe = [
     description:
       "Créative et passionnée par le design, Kelly conçoit des interfaces élégantes et intuitives qui captivent vos utilisateurs.",
     photo: "/equipe/kelly-akplogan.jpg",
-    linkedin: "https://linkedin.com/in/kelly-akplogan",
-    facebook: "https://facebook.com/kelly-akplogan",
+    linkedin: "https://linkedin.com/in/kellyjosueakplogan",
+    facebook: "https://facebook.com/kellyjosueakplogan",
   },
   {
     nom: "Jean Luc BIGNON",
     role: "Monteur vidéo",
     description:
-      "Description du membre à personnaliser ultérieurement.",
+      "slut.",
     photo: "/equipe/membre-2.jpg",
-    linkedin: "https://linkedin.com/",
-    facebook: "https://facebook.com/",
+    linkedin: "#https://linkedin.com/",
+    facebook: "#https://facebook.com/",
   },
   {
     nom: "Membre 3",
     role: "Rôle à définir",
     description:
-      "Description du membre à personnaliser ultérieurement.",
+      "slut",
     photo: "/equipe/membre-3.jpg",
     linkedin: "https://linkedin.com/",
     facebook: "https://facebook.com/",
@@ -35,7 +35,7 @@ const equipe = [
     nom: "Membre 4",
     role: "Rôle à définir",
     description:
-      "Description du membre à personnaliser ultérieurement.",
+      "slut.",
     photo: "/equipe/membre-4.jpg",
     linkedin: "https://linkedin.com/",
     facebook: "https://facebook.com/",
@@ -44,7 +44,7 @@ const equipe = [
     nom: "Membre 5",
     role: "Rôle à définir",
     description:
-      "Description du membre à personnaliser ultérieurement.",
+      "slut.",
     photo: "/equipe/membre-5.jpg",
     linkedin: "https://linkedin.com/",
     facebook: "https://facebook.com/",
@@ -53,14 +53,14 @@ const equipe = [
     nom: "Membre 6",
     role: "Rôle à définir",
     description:
-      "Description du membre à personnaliser ultérieurement.",
+      "slut",
     photo: "/equipe/membre-6.jpg",
     linkedin: "https://linkedin.com/",
     facebook: "https://facebook.com/",
   },
 ];
 
-// Icônes SVG inline
+
 function LinkedInIcon() {
   return (
     <svg
