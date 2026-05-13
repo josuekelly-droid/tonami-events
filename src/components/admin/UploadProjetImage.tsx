@@ -1,10 +1,9 @@
 "use client";
 
-import { UploadButton } from "@uploadthing/react";
-import type { OurFileRouter } from "@/app/api/uploadthing/core";
+import { useState, useRef } from "react";
 import Image from "next/image";
 
-interface UploadProjetImageProps {
+interface UploadProjetMediasProps {
   image: string;
   video: string;
   onImageChange: (url: string) => void;
@@ -16,81 +15,112 @@ export function UploadProjetMedias({
   video,
   onImageChange,
   onVideoChange,
-}: UploadProjetImageProps) {
+}: UploadProjetMediasProps) {
+  const [uploading, setUploading] = useState(false);
+  const imageInputRef = useRef<HTMLInputElement>(null);
+  const videoInputRef = useRef<HTMLInputElement>(null);
+
+  const handleUpload = async (file: File, type: "image" | "video") => {
+    setUploading(true);
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("type", type);
+
+    try {
+      const res = await fetch("/api/upload", { method: "POST", body: formData });
+      const data = await res.json();
+      if (res.ok) {
+        if (type === "image") onImageChange(data.url);
+        else onVideoChange(data.url);
+      } else {
+        alert("Erreur : " + (data.error || "Inconnue"));
+      }
+    } catch {
+      alert("Erreur réseau lors de l'upload.");
+    }
+    setUploading(false);
+  };
+
   return (
     <div className="space-y-4">
-      {/* Image */}
+      
       <div>
-        <label className="block text-sm font-medium text-tertiary mb-1.5">
-          Image *
-        </label>
+        <label className="block text-sm font-medium text-tertiary mb-1.5">Image *</label>
         {image ? (
           <div className="relative w-full aspect-video rounded-xl overflow-hidden bg-gray-light/20 mb-2">
             <Image src={image} alt="Aperçu" fill className="object-cover" />
-            <button
-              type="button"
-              onClick={() => onImageChange("")}
-              className="absolute top-2 right-2 bg-red-500 text-white w-8 h-8 rounded-full text-sm hover:bg-red-600 flex items-center justify-center"
-            >
-              ✕
-            </button>
+            <button type="button" onClick={() => onImageChange("")} className="absolute top-2 right-2 bg-red-500 text-white w-8 h-8 rounded-full text-sm hover:bg-red-600 flex items-center justify-center">✕</button>
           </div>
         ) : (
-          <div className="border-2 border-dashed border-gray-light/30 rounded-xl p-6 text-center mb-2">
-            <UploadButton<OurFileRouter, "projetImage">
-              endpoint="projetImage"
-              onClientUploadComplete={(res) => {
-                if (res?.[0]) onImageChange(res[0].ufsUrl);
-              }}
-              onUploadError={(error: Error) => {
-                alert(`Erreur image : ${error.message}`);
-              }}
-              appearance={{
-                button:
-                  "bg-primary text-secondary px-4 py-2 rounded-lg text-sm font-semibold hover:bg-primary/90",
-                container: "",
-                allowedContent: "text-gray-medium text-xs mt-2",
+          <div>
+            <input
+              ref={imageInputRef}
+              type="file"
+              accept="image/*"
+              className="hidden"
+              onChange={(e) => {
+                const file = e.target.files?.[0];
+                if (file) handleUpload(file, "image");
               }}
             />
+            <button
+              type="button"
+              onClick={() => imageInputRef.current?.click()}
+              disabled={uploading}
+              className="bg-primary text-secondary px-4 py-2.5 rounded-lg text-sm font-semibold hover:bg-primary/90 disabled:opacity-50 w-full sm:w-auto"
+            >
+              {uploading ? "Téléchargement..." : "Choisir une image"}
+            </button>
+            <p className="text-gray-medium text-xs mt-1">Image (max 4MB)</p>
           </div>
         )}
+        <input
+          type="text"
+          placeholder="Ou collez une URL d'image"
+          value={image}
+          onChange={(e) => onImageChange(e.target.value)}
+          className="w-full mt-2 bg-gray-light/10 border border-gray-light/30 rounded-xl px-4 py-2 text-sm text-tertiary placeholder:text-gray-medium focus:outline-none focus:border-primary"
+        />
       </div>
 
-      {/* Vidéo */}
+      
       <div>
-        <label className="block text-sm font-medium text-tertiary mb-1.5">
-          Vidéo (optionnelle)
-        </label>
+        <label className="block text-sm font-medium text-tertiary mb-1.5">Vidéo (optionnelle)</label>
         {video ? (
           <div className="relative w-full aspect-video rounded-xl overflow-hidden bg-gray-light/20 mb-2">
             <video src={video} controls className="w-full h-full object-cover" />
-            <button
-              type="button"
-              onClick={() => onVideoChange("")}
-              className="absolute top-2 right-2 bg-red-500 text-white w-8 h-8 rounded-full text-sm hover:bg-red-600 flex items-center justify-center"
-            >
-              ✕
-            </button>
+            <button type="button" onClick={() => onVideoChange("")} className="absolute top-2 right-2 bg-red-500 text-white w-8 h-8 rounded-full text-sm hover:bg-red-600 flex items-center justify-center">✕</button>
           </div>
         ) : (
-          <div className="border-2 border-dashed border-gray-light/30 rounded-xl p-6 text-center mb-2">
-            <UploadButton<OurFileRouter, "projetVideo">
-              endpoint="projetVideo"
-              onClientUploadComplete={(res) => {
-                if (res?.[0]) onVideoChange(res[0].ufsUrl);
-              }}
-              onUploadError={(error: Error) => {
-                alert(`Erreur vidéo : ${error.message}`);
-              }}
-              appearance={{
-                button:
-                  "bg-tertiary text-secondary px-4 py-2 rounded-lg text-sm font-semibold hover:bg-tertiary/80",
-                container: "",
-                allowedContent: "text-gray-medium text-xs mt-2",
+          <div>
+            <input
+              ref={videoInputRef}
+              type="file"
+              accept="video/*"
+              className="hidden"
+              onChange={(e) => {
+                const file = e.target.files?.[0];
+                if (file) handleUpload(file, "video");
               }}
             />
+            <button
+              type="button"
+              onClick={() => videoInputRef.current?.click()}
+              disabled={uploading}
+              className="bg-tertiary text-secondary px-4 py-2.5 rounded-lg text-sm font-semibold hover:bg-tertiary/80 disabled:opacity-50 w-full sm:w-auto"
+            >
+              {uploading ? "Téléchargement..." : "Choisir une vidéo"}
+            </button>
+            <p className="text-gray-medium text-xs mt-1">Vidéo (max 64MB)</p>
           </div>
         )}
+        <input
+          type="text"
+          placeholder="Ou collez une URL de vidéo"
+          value={video}
+          onChange={(e) => onVideoChange(e.target.value)}
+          className="w-full mt-2 bg-gray-light/10 border border-gray-light/30 rounded-xl px-4 py-2 text-sm text-tertiary placeholder:text-gray-medium focus:outline-none focus:border-primary"
+        />
       </div>
     </div>
   );

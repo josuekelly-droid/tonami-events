@@ -3,9 +3,7 @@
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState, type FormEvent } from "react";
-import { UploadButton } from "@uploadthing/react";
-import type { OurFileRouter } from "@/app/api/uploadthing/core";
-import Image from "next/image";
+import { UploadProjetMedias } from "@/components/admin/UploadProjetImage";
 
 interface Article {
   id: number;
@@ -139,25 +137,12 @@ export default function ArticlesAdmin() {
             <input type="text" placeholder="Résumé *" required value={form.resume} onChange={(e) => setForm({ ...form, resume: e.target.value })} className="w-full bg-gray-light/10 border border-gray-light/30 rounded-xl px-4 py-2.5 text-tertiary placeholder:text-gray-medium focus:outline-none focus:border-primary" />
             <textarea placeholder="Contenu *" required value={form.contenu} onChange={(e) => setForm({ ...form, contenu: e.target.value })} rows={8} className="w-full bg-gray-light/10 border border-gray-light/30 rounded-xl px-4 py-2.5 text-tertiary placeholder:text-gray-medium focus:outline-none focus:border-primary resize-none" />
 
-            
-            <div>
-              <label className="block text-sm font-medium text-tertiary mb-1.5">Image *</label>
-              {form.image ? (
-                <div className="relative w-full aspect-video rounded-xl overflow-hidden bg-gray-light/20 mb-2">
-                  <Image src={form.image} alt="Aperçu" fill className="object-cover" />
-                  <button type="button" onClick={() => setForm({ ...form, image: "" })} className="absolute top-2 right-2 bg-red-500 text-white w-8 h-8 rounded-full text-sm hover:bg-red-600 flex items-center justify-center">✕</button>
-                </div>
-              ) : (
-                <div className="border-2 border-dashed border-gray-light/30 rounded-xl p-6 text-center mb-2">
-                  <UploadButton<OurFileRouter, "projetImage">
-                    endpoint="projetImage"
-                    onClientUploadComplete={(res) => { if (res?.[0]) setForm({ ...form, image: res[0].ufsUrl }); }}
-                    onUploadError={(error: Error) => { alert(`Erreur : ${error.message}`); }}
-                    appearance={{ button: "bg-primary text-secondary px-4 py-2 rounded-lg text-sm font-semibold hover:bg-primary/90", container: "", allowedContent: "text-gray-medium text-xs mt-2" }}
-                  />
-                </div>
-              )}
-            </div>
+            <UploadProjetMedias
+              image={form.image}
+              video=""
+              onImageChange={(url) => setForm({ ...form, image: url })}
+              onVideoChange={() => {}}
+            />
 
             <div className="flex items-center gap-8">
               <label className="flex items-center gap-2 text-sm text-tertiary">
@@ -171,7 +156,6 @@ export default function ArticlesAdmin() {
           </form>
         )}
 
-        
         <div className="bg-secondary border border-gray-light/30 rounded-2xl overflow-hidden">
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
