@@ -129,14 +129,14 @@ export function PortfolioPage({ projets }: PortfolioPageProps) {
                     onClick={() => setProjetSelectionne(projet)}
                     className="group relative bg-secondary border border-gray-light/30 rounded-2xl overflow-hidden cursor-pointer hover:shadow-xl transition-shadow duration-300"
                   >
-                    <div className="relative aspect-[4/3] overflow-hidden">
-                      <Image
-                        src={projet.image}
-                        alt={projet.titre}
-                        fill
-                        className="object-cover group-hover:scale-105 transition-transform duration-500"
-                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                      />
+                    <div className="relative h-56 sm:h-64 overflow-hidden bg-gray-light/10">
+  <Image
+    src={projet.image}
+    alt={projet.titre}
+    fill
+    className="object-contain group-hover:scale-105 transition-transform duration-500"
+    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+  />
                       <div className="absolute inset-0 bg-tertiary/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
                         <span className="text-secondary font-semibold text-sm bg-primary px-4 py-2 rounded-lg">
                           Voir le projet
@@ -179,13 +179,13 @@ export function PortfolioPage({ projets }: PortfolioPageProps) {
               onClick={(e) => e.stopPropagation()}
               className="bg-secondary rounded-3xl max-w-2xl w-full max-h-[90vh] overflow-y-auto"
             >
-              <div className="relative aspect-video">
-                <Image
-                  src={projetSelectionne.image}
-                  alt={projetSelectionne.titre}
-                  fill
-                  className="object-cover rounded-t-3xl"
-                />
+              <div className="relative h-56 sm:h-80 bg-gray-light/10 rounded-t-3xl">
+  <Image
+    src={projetSelectionne.image}
+    alt={projetSelectionne.titre}
+    fill
+    className="object-contain rounded-t-3xl"
+  />
                 <button
                   onClick={() => setProjetSelectionne(null)}
                   className="absolute top-4 right-4 w-10 h-10 bg-tertiary/60 text-secondary rounded-full flex items-center justify-center hover:bg-tertiary transition-colors"
