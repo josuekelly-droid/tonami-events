@@ -2,11 +2,11 @@
 import Image from "next/image";
 
 const services = [
-  "Production Audiovisuelle",
-  "Design Graphique",
-  "Services Numériques",
-  "Conseil & Formation",
-  "Location Matériel",
+  { href: "/services/audiovisuel", label: "Production Audiovisuelle" },
+  { href: "/services/design", label: "Design Graphique" },
+  { href: "/services/numerique", label: "Services Numériques" },
+  { href: "/services/conseil", label: "Conseil & Formation" },
+  { href: "/services/location", label: "Location Matériel" },
 ];
 
 const pages = [
@@ -68,15 +68,15 @@ export default function Footer() {
             </h3>
             <ul className="space-y-3">
               {services.map((service) => (
-                <li key={service}>
-                  <Link
-                    href="/services"
-                    className="text-sm text-gray-medium hover:text-secondary transition-colors duration-200"
-                  >
-                    {service}
-                  </Link>
-                </li>
-              ))}
+  <li key={service.href}>
+    <Link
+      href={service.href}
+      className="text-sm text-gray-medium hover:text-secondary transition-colors duration-200"
+    >
+      {service.label}
+    </Link>
+  </li>
+))}
             </ul>
           </div>
         </div>
