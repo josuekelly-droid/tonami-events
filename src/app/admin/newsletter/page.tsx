@@ -66,48 +66,70 @@ export default function NewsletterAdmin() {
 
   return (
     <div className="min-h-screen bg-gray-light/10">
+      {/* Header */}
       <header className="bg-secondary border-b border-gray-light/30">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
-          <div className="flex items-center gap-4">
-            <button onClick={() => router.push("/admin")} className="text-gray-medium hover:text-tertiary">← Retour</button>
-            <h1 className="font-heading font-bold text-xl text-tertiary">Newsletter</h1>
-            <span className="text-sm text-gray-medium">{abonnes.length} abonnés</span>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16 gap-4">
+          <div className="flex items-center gap-2 sm:gap-4 min-w-0">
+            <button onClick={() => router.push("/admin")} className="text-gray-medium hover:text-tertiary flex-shrink-0">←</button>
+            <h1 className="font-heading font-bold text-lg sm:text-xl text-tertiary truncate">Newsletter</h1>
+            <span className="text-xs sm:text-sm text-gray-medium flex-shrink-0">{abonnes.length} abonné{abonnes.length !== 1 ? "s" : ""}</span>
           </div>
           {abonnes.length > 0 && (
-            <button onClick={handleExport} className="bg-tertiary text-secondary px-4 py-2 rounded-lg text-sm font-semibold hover:bg-tertiary/80">
-              📥 Exporter CSV
+            <button onClick={handleExport} className="bg-tertiary text-secondary px-3 py-2 rounded-lg text-xs sm:text-sm font-semibold hover:bg-tertiary/80 flex-shrink-0">
+              📥 CSV
             </button>
           )}
         </div>
       </header>
 
+      {/* Contenu */}
       <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="bg-secondary border border-gray-light/30 rounded-2xl overflow-hidden">
-          {abonnes.length === 0 ? (
-            <p className="text-gray-medium text-center py-12">Aucun abonné pour le moment.</p>
-          ) : (
-            <table className="w-full text-sm">
-              <thead className="bg-gray-light/10 text-left">
-                <tr>
-                  <th className="px-6 py-4 font-semibold text-tertiary">Email</th>
-                  <th className="px-6 py-4 font-semibold text-tertiary">Inscription</th>
-                  <th className="px-6 py-4 font-semibold text-tertiary w-24">Action</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-gray-light/20">
-                {abonnes.map((a) => (
-                  <tr key={a.id} className="hover:bg-gray-light/5">
-                    <td className="px-6 py-4 text-tertiary">{a.email}</td>
-                    <td className="px-6 py-4 text-gray-medium">{formatDate(a.inscritLe)}</td>
-                    <td className="px-6 py-4">
-                      <button onClick={() => handleDelete(a.id)} className="text-red-500 hover:underline text-xs">Supprimer</button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          )}
-        </div>
+        {abonnes.length === 0 ? (
+          <div className="bg-secondary border border-gray-light/30 rounded-2xl p-12 text-center">
+            <p className="text-gray-medium">Aucun abonné pour le moment.</p>
+          </div>
+        ) : (
+          <>
+            {/* Vue mobile : cartes */}
+            <div className="sm:hidden space-y-3">
+              {abonnes.map((a) => (
+                <div key={a.id} className="bg-secondary border border-gray-light/30 rounded-xl p-4 flex items-center justify-between gap-3">
+                  <div className="min-w-0 flex-1">
+                    <p className="text-tertiary text-sm font-medium truncate">{a.email}</p>
+                    <p className="text-gray-medium text-xs mt-0.5">{formatDate(a.inscritLe)}</p>
+                  </div>
+                  <button onClick={() => handleDelete(a.id)} className="text-red-500 hover:text-red-700 text-xs font-medium flex-shrink-0">Supprimer</button>
+                </div>
+              ))}
+            </div>
+
+            {/* Vue desktop : tableau */}
+            <div className="hidden sm:block bg-secondary border border-gray-light/30 rounded-2xl overflow-hidden">
+              <div className="overflow-x-auto">
+                <table className="w-full text-sm">
+                  <thead className="bg-gray-light/10 text-left">
+                    <tr>
+                      <th className="px-6 py-4 font-semibold text-tertiary">Email</th>
+                      <th className="px-6 py-4 font-semibold text-tertiary">Inscription</th>
+                      <th className="px-6 py-4 font-semibold text-tertiary w-24">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-gray-light/20">
+                    {abonnes.map((a) => (
+                      <tr key={a.id} className="hover:bg-gray-light/5">
+                        <td className="px-6 py-4 text-tertiary">{a.email}</td>
+                        <td className="px-6 py-4 text-gray-medium">{formatDate(a.inscritLe)}</td>
+                        <td className="px-6 py-4">
+                          <button onClick={() => handleDelete(a.id)} className="text-red-500 hover:underline text-xs">Supprimer</button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </>
+        )}
       </main>
     </div>
   );
