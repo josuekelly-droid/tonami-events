@@ -1,44 +1,60 @@
-# # Script de notification Google - Tonami Events
-# # A executer apres chaque deploiement
+# Script de verification d'accessibilite des pages
+# Verifie que chaque page est accessible avant soumission Google
 
-# $BASE_URL = "https://tonami-events.vercel.app"
+$BASE_URL = "https://tonami-events.vercel.app"
 
-# $PAGES = @(
-#     "/",
-#     "/agence",
-#     "/services",
-#     "/services/audiovisuel",
-#     "/services/design",
-#     "/services/numerique",
-#     "/services/conseil",
-#     "/services/location",
-#     "/portfolio",
-#     "/blog",
-#     "/contact",
-#     "/mentions-legales",
-#     "/confidentialite"
-# )
+$PAGES = @(
+    "/",
+    "/agence",
+    "/services",
+    "/services/audiovisuel",
+    "/services/design",
+    "/services/numerique",
+    "/services/conseil",
+    "/services/location",
+    "/portfolio",
+    "/blog",
+    "/contact",
+    "/mentions-legales",
+    "/confidentialite"
+)
 
-# Write-Host "Notification Google pour $BASE_URL" -ForegroundColor Cyan
-# Write-Host "====================================" -ForegroundColor Cyan
+Write-Host "Verification des pages - Tonami Events" -ForegroundColor Cyan
+Write-Host "=======================================" -ForegroundColor Cyan
+Write-Host ""
 
-# $compteur = 0
-# $total = $PAGES.Count
+$ok = 0
+$echecs = 0
+$total = $PAGES.Count
 
-# foreach ($page in $PAGES) {
-#     $compteur++
-#     $url = "$BASE_URL$page"
+foreach ($page in $PAGES) {
+    $url = "$BASE_URL$page"
     
-#     try {
-#         $response = Invoke-WebRequest -Uri "https://www.google.com/ping?sitemap=$url" -Method Get -TimeoutSec 10 -ErrorAction Stop
-#         Write-Host "[$compteur/$total] OK : $url" -ForegroundColor Green
-#     }
-#     catch {
-#         Write-Host "[$compteur/$total] Echec : $url" -ForegroundColor Yellow
-#     }
+    try {
+        $response = Invoke-WebRequest -Uri $url -Method Get -TimeoutSec 10 -ErrorAction Stop
+        
+        if ($response.StatusCode -eq 200) {
+            Write-Host "[$ok/$total] OK (200) : $url" -ForegroundColor Green
+            $ok++
+        }
+        else {
+            Write-Host "[$echecs/$total] HTTP $($response.StatusCode) : $url" -ForegroundColor Red
+            $echecs++
+        }
+    }
+    catch {
+        Write-Host "[$echecs/$total] ERR : $url" -ForegroundColor Red
+        $echecs++
+    }
     
-#     Start-Sleep -Milliseconds 200
-# }
+    Start-Sleep -Milliseconds 200
+}
 
-# Write-Host "====================================" -ForegroundColor Cyan
-# Write-Host "Termine. Verifiez Google Search Console." -ForegroundColor Green
+Write-Host ""
+Write-Host "=======================================" -ForegroundColor Cyan
+Write-Host "Resultat : $ok pages OK, $echecs echecs" -ForegroundColor $(if ($echecs -eq 0) { "Green" } else { "Red" })
+Write-Host ""
+Write-Host "Prochaine etape :" -ForegroundColor Yellow
+Write-Host "1. Allez sur https://search.google.com/search-console" -ForegroundColor White
+Write-Host "2. Ajoutez la propriete : $BASE_URL" -ForegroundColor White
+Write-Host "3. Soumettez votre sitemap : $BASE_URL/sitemap.xml" -ForegroundColor White

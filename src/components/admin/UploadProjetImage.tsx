@@ -4,7 +4,7 @@ import { UploadButton } from "@uploadthing/react";
 import type { OurFileRouter } from "@/app/api/uploadthing/core";
 import Image from "next/image";
 
-interface UploadProjetImageProps {
+interface UploadProjetMediasProps {
   image: string;
   video: string;
   onImageChange: (url: string) => void;
@@ -16,7 +16,7 @@ export function UploadProjetMedias({
   video,
   onImageChange,
   onVideoChange,
-}: UploadProjetImageProps) {
+}: UploadProjetMediasProps) {
   return (
     <div className="space-y-4">
       {/* Image */}
@@ -36,7 +36,7 @@ export function UploadProjetMedias({
             </button>
           </div>
         ) : (
-          <div className="border-2 border-dashed border-gray-light/30 rounded-xl p-6 text-center mb-2">
+          <div className="border-2 border-dashed border-gray-light/30 rounded-xl p-4 text-center mb-2">
             <UploadButton<OurFileRouter, "projetImage">
               endpoint="projetImage"
               onClientUploadComplete={(res) => {
@@ -45,11 +45,23 @@ export function UploadProjetMedias({
               onUploadError={(error: Error) => {
                 alert(`Erreur image : ${error.message}`);
               }}
+              content={{
+                button({ ready, isUploading }) {
+                  if (isUploading) return "Téléchargement...";
+                  if (ready) return "Choisir une image";
+                  return "Préparation...";
+                },
+                allowedContent({ ready, isUploading }) {
+                  if (isUploading) return "";
+                  if (ready) return "Image (max 4MB)";
+                  return "";
+                },
+              }}
               appearance={{
                 button:
-                  "bg-primary text-secondary px-4 py-2 rounded-lg text-sm font-semibold hover:bg-primary/90",
-                container: "",
-                allowedContent: "text-gray-medium text-xs mt-2",
+                  "bg-primary text-secondary px-4 py-2 rounded-lg text-sm font-semibold hover:bg-primary/90 w-full sm:w-auto",
+                container: "flex flex-col items-center gap-2",
+                allowedContent: "text-gray-medium text-xs",
               }}
             />
           </div>
@@ -73,7 +85,7 @@ export function UploadProjetMedias({
             </button>
           </div>
         ) : (
-          <div className="border-2 border-dashed border-gray-light/30 rounded-xl p-6 text-center mb-2">
+          <div className="border-2 border-dashed border-gray-light/30 rounded-xl p-4 text-center mb-2">
             <UploadButton<OurFileRouter, "projetVideo">
               endpoint="projetVideo"
               onClientUploadComplete={(res) => {
@@ -82,11 +94,23 @@ export function UploadProjetMedias({
               onUploadError={(error: Error) => {
                 alert(`Erreur vidéo : ${error.message}`);
               }}
+              content={{
+                button({ ready, isUploading }) {
+                  if (isUploading) return "Téléchargement...";
+                  if (ready) return "Choisir une vidéo";
+                  return "Préparation...";
+                },
+                allowedContent({ ready, isUploading }) {
+                  if (isUploading) return "";
+                  if (ready) return "Vidéo (max 64MB)";
+                  return "";
+                },
+              }}
               appearance={{
                 button:
-                  "bg-tertiary text-secondary px-4 py-2 rounded-lg text-sm font-semibold hover:bg-tertiary/80",
-                container: "",
-                allowedContent: "text-gray-medium text-xs mt-2",
+                  "bg-tertiary text-secondary px-4 py-2 rounded-lg text-sm font-semibold hover:bg-tertiary/80 w-full sm:w-auto",
+                container: "flex flex-col items-center gap-2",
+                allowedContent: "text-gray-medium text-xs",
               }}
             />
           </div>

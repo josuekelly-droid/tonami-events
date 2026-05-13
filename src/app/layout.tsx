@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     process.env.NEXT_PUBLIC_BASE_URL || "https://tonami-events.vercel.app"
   ),
   title: {
-    default: "Tonami Events | Agence de Communication",
+    default: "Agence de Communication Audiovisuelle à Cotonou | Tonami Events",
     template: "%s | Tonami Events",
   },
   description:
