@@ -34,22 +34,24 @@ export function ArticleDetail({
 
   return (
     <>
-      {/* Hero */}
+      
       <section className="bg-tertiary text-secondary pt-24 lg:pt-32 pb-16">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
           >
-            <Link
-              href="/blog"
-              className="inline-flex items-center gap-2 text-gray-light text-sm hover:text-secondary transition-colors mb-6"
-            >
-              <span>←</span> Retour au blog
-            </Link>
-            <span className="inline-block bg-primary text-secondary text-xs font-semibold px-3 py-1 rounded-full mb-4">
-              {categorie}
-            </span>
+            <div className="flex flex-wrap items-center gap-3 mb-6">
+  <Link
+    href="/blog"
+    className="inline-flex items-center gap-2 text-gray-light text-sm hover:text-secondary transition-colors"
+  >
+    <span>←</span> Retour au blog
+  </Link>
+  <span className="inline-block bg-primary text-secondary text-xs font-semibold px-3 py-1 rounded-full">
+    {categorie}
+  </span>
+</div>
             <h1 className="font-heading text-3xl sm:text-4xl lg:text-5xl font-bold mb-6">
               {titre}
             </h1>
