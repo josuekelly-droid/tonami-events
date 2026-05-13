@@ -4,7 +4,7 @@ import bcrypt from "bcryptjs";
 
 async function createAdmin() {
   const email = "admin@tonami-events.com";
-  const motDePasse = "gogovivi-hahaha-lol-belelou"; 
+  const motDePasse = "%%%%%%-%%%%56"; 
   const hash = await bcrypt.hash(motDePasse, 12);
 
   await db.insert(utilisateurs).values({
