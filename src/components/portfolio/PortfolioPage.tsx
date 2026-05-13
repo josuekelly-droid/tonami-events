@@ -11,6 +11,7 @@ interface Projet {
   categorie: string;
   description: string;
   image: string;
+  video?: string | null;
   lien?: string | null;
 }
 
@@ -179,16 +180,24 @@ export function PortfolioPage({ projets }: PortfolioPageProps) {
               onClick={(e) => e.stopPropagation()}
               className="bg-secondary rounded-3xl max-w-2xl w-full max-h-[90vh] overflow-y-auto"
             >
-              <div className="relative h-56 sm:h-80 bg-gray-light/10 rounded-t-3xl">
-  <Image
-    src={projetSelectionne.image}
-    alt={projetSelectionne.titre}
-    fill
-    className="object-contain rounded-t-3xl"
-  />
+                            <div className="relative h-56 sm:h-80 bg-gray-light/10 rounded-t-3xl">
+                {projetSelectionne.video ? (
+                  <video
+                    src={projetSelectionne.video}
+                    controls
+                    className="w-full h-full object-contain rounded-t-3xl"
+                  />
+                ) : (
+                  <Image
+                    src={projetSelectionne.image}
+                    alt={projetSelectionne.titre}
+                    fill
+                    className="object-contain rounded-t-3xl"
+                  />
+                )}
                 <button
                   onClick={() => setProjetSelectionne(null)}
-                  className="absolute top-4 right-4 w-10 h-10 bg-tertiary/60 text-secondary rounded-full flex items-center justify-center hover:bg-tertiary transition-colors"
+                  className="absolute top-4 right-4 w-10 h-10 bg-tertiary/60 text-secondary rounded-full flex items-center justify-center hover:bg-tertiary transition-colors z-10"
                 >
                   ✕
                 </button>
