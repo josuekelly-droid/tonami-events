@@ -87,6 +87,25 @@ export const temoignages = pgTable("temoignages", {
 });
 
 
+export const statutAvisEnum = pgEnum("statut_avis", [
+  "en_attente",
+  "approuve",
+  "refuse",
+]);
+
+export const avis = pgTable("avis", {
+  id: serial("id").primaryKey(),
+  nom: text("nom").notNull(),
+  email: text("email").notNull(),
+  entreprise: text("entreprise"),
+  note: serial("note"),
+  contenu: text("contenu").notNull(),
+  statut: statutAvisEnum("statut").default("en_attente").notNull(),
+  creeLe: timestamp("cree_le").defaultNow().notNull(),
+  modifieLe: timestamp("modifie_le").defaultNow().notNull(),
+});
+
+
 export const contacts = pgTable("contacts", {
   id: serial("id").primaryKey(),
   nom: text("nom").notNull(),

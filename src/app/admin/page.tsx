@@ -61,6 +61,7 @@ export default function AdminDashboard() {
             { titre: "Témoignages", description: "Gérer les avis clients", lien: "/admin/temoignages" },
             { titre: "Contacts", description: "Messages reçus", lien: "/admin/contacts" },
             { titre: "Newsletter", description: "Abonnés", lien: "/admin/newsletter" },
+            { titre: "Avis", description: "Avis clients à modérer", lien: "/admin/avis" },
             { titre: "Paramètres", description: "Compte admin", lien: "/admin/parametres" },
           ].map((item) => (
             <button

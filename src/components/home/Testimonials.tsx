@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 
-interface Temoignage {
+interface Avis {
   id: number;
   nom: string;
   role: string;
@@ -13,7 +13,7 @@ interface Temoignage {
 }
 
 export default function Testimonials() {
-  const [temoignages, setTemoignages] = useState<Temoignage[]>([]);
+  const [temoignages, setTemoignages] = useState<Avis[]>([]);
 
   useEffect(() => {
     fetch("/api/public/temoignages")

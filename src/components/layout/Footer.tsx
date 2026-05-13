@@ -15,6 +15,7 @@ const pages = [
   { href: "/portfolio", label: "Réalisations" },
   { href: "/blog", label: "Blog" },
   { href: "/contact", label: "Contact" },
+  { href: "/avis", label: "Un Avis ?" },
 ];
 
 export default function Footer() {
