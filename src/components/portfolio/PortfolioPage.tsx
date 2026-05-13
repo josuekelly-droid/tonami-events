@@ -220,7 +220,7 @@ export function PortfolioPage({ projets }: PortfolioPageProps) {
     className="inline-flex items-center gap-2 bg-primary text-secondary px-6 py-3 rounded-lg font-semibold hover:bg-primary/90 transition-colors"
   >
     Un projet similaire ?
-    <span>→</span>
+    <span>↗</span>
   </Link>
 </div>
               </div>
