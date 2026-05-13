@@ -10,7 +10,8 @@ interface Article {
   titre: string;
   categorie: string;
   auteur: string;
-  date: string;
+  date?: string;
+  creeLe?: string;
   resume: string;
   image: string;
   tempsLecture: string;
@@ -42,14 +43,16 @@ export function BlogPage({ articles }: BlogPageProps) {
     return matchCategorie && matchRecherche;
   });
 
-  const formatDate = (dateStr: string) => {
-    const date = new Date(dateStr);
-    return date.toLocaleDateString("fr-FR", {
-      day: "numeric",
-      month: "long",
-      year: "numeric",
-    });
-  };
+  const formatDate = (dateStr?: string) => {
+  if (!dateStr) return "";
+  const date = new Date(dateStr);
+  if (isNaN(date.getTime())) return "";
+  return date.toLocaleDateString("fr-FR", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  });
+};
 
   return (
     <>
@@ -182,7 +185,7 @@ export function BlogPage({ articles }: BlogPageProps) {
                         <div className="flex items-center gap-4 text-xs text-gray-medium mb-3">
                           <span>{article.auteur}</span>
                           <span>•</span>
-                          <span>{formatDate(article.date)}</span>
+                          <span>{formatDate(article.date || article.creeLe)}</span>
                           <span>•</span>
                           <span>{article.tempsLecture} de lecture</span>
                         </div>
