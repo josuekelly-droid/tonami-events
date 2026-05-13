@@ -51,6 +51,7 @@ export const projets = pgTable("projets", {
   categorie: categorieProjetEnum("categorie").notNull(),
   image: text("image").notNull(),
   video: text("video"),
+  lien: text("lien"),
   client: text("client"),
   dateRealisation: text("date_realisation"),
   misEnAvant: boolean("mis_en_avant").default(false).notNull(),

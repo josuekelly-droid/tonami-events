@@ -45,6 +45,7 @@ export async function PUT(
       categorie: body.categorie,
       image: body.image,
       video: body.video || null,
+      lien: body.lien || null,
       client: body.client || null,
       dateRealisation: body.dateRealisation || null,
       misEnAvant: body.misEnAvant || false,

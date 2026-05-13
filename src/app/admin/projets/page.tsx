@@ -12,6 +12,7 @@ interface Projet {
   categorie: string;
   image: string;
   video: string | null;
+  lien: string | null;
   client: string | null;
   dateRealisation: string | null;
   misEnAvant: boolean;
@@ -33,6 +34,7 @@ export default function ProjetsAdmin() {
     categorie: "Audiovisuel",
     image: "",
     video: "",
+    lien: "",
     client: "",
     dateRealisation: "",
     misEnAvant: false,
@@ -54,7 +56,7 @@ export default function ProjetsAdmin() {
   };
 
   const resetForm = () => {
-    setForm({ titre: "", description: "", categorie: "Audiovisuel", image: "", video: "", client: "", dateRealisation: "", misEnAvant: false });
+    setForm({ titre: "", description: "", categorie: "Audiovisuel", image: "", video: "", lien:"", client: "", dateRealisation: "", misEnAvant: false });
     setEdition(null);
     setShowForm(false);
   };
@@ -66,6 +68,7 @@ export default function ProjetsAdmin() {
       categorie: projet.categorie,
       image: projet.image,
       video: projet.video || "",
+      lien: projet.lien|| "",
       client: projet.client || "",
       dateRealisation: projet.dateRealisation || "",
       misEnAvant: projet.misEnAvant,
@@ -136,6 +139,7 @@ export default function ProjetsAdmin() {
               </select>
               <input type="text" placeholder="Client (optionnel)" value={form.client} onChange={(e) => setForm({ ...form, client: e.target.value })} className="bg-gray-light/10 border border-gray-light/30 rounded-xl px-4 py-2.5 text-tertiary placeholder:text-gray-medium focus:outline-none focus:border-primary" />
               <input type="text" placeholder="Date de réalisation (optionnel)" value={form.dateRealisation} onChange={(e) => setForm({ ...form, dateRealisation: e.target.value })} className="bg-gray-light/10 border border-gray-light/30 rounded-xl px-4 py-2.5 text-tertiary placeholder:text-gray-medium focus:outline-none focus:border-primary" />
+              <input type="url" placeholder="Lien du projet (optionnel)" value={form.lien} onChange={(e) => setForm({ ...form, lien: e.target.value })} className="bg-gray-light/10 border border-gray-light/30 rounded-xl px-4 py-2.5 text-tertiary placeholder:text-gray-medium focus:outline-none focus:border-primary" />
             </div>
 
             

@@ -11,6 +11,7 @@ interface Projet {
   categorie: string;
   description: string;
   image: string;
+  lien?: string | null;
 }
 
 interface PortfolioPageProps {
@@ -200,15 +201,28 @@ export function PortfolioPage({ projets }: PortfolioPageProps) {
                   {projetSelectionne.titre}
                 </h2>
                 <p className="text-gray-medium leading-relaxed">
-                  {projetSelectionne.description}
-                </p>
-                <Link
-                  href="/contact"
-                  className="inline-flex items-center gap-2 mt-6 bg-primary text-secondary px-6 py-3 rounded-lg font-semibold hover:bg-primary/90 transition-colors"
-                >
-                  Un projet similaire ?
-                  <span>→</span>
-                </Link>
+  {projetSelectionne.description}
+</p>
+<div className="flex flex-wrap gap-3 mt-6">
+  {projetSelectionne.lien && (
+    <a
+      href={projetSelectionne.lien}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="inline-flex items-center gap-2 bg-tertiary text-secondary px-6 py-3 rounded-lg font-semibold hover:bg-tertiary/80 transition-colors"
+    >
+      Voir le projet
+      <span>↗</span>
+    </a>
+  )}
+  <Link
+    href="/contact"
+    className="inline-flex items-center gap-2 bg-primary text-secondary px-6 py-3 rounded-lg font-semibold hover:bg-primary/90 transition-colors"
+  >
+    Un projet similaire ?
+    <span>→</span>
+  </Link>
+</div>
               </div>
             </motion.div>
           </motion.div>

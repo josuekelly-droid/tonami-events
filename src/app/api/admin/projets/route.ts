@@ -4,7 +4,7 @@ import { db } from "@/db";
 import { projets } from "@/db/schema";
 import { eq } from "drizzle-orm";
 
-// GET - Récupérer tous les projets
+
 export async function GET() {
   const session = await getServerSession();
   if (!session) {
@@ -29,6 +29,7 @@ export async function POST(request: Request) {
     categorie: body.categorie,
     image: body.image,
     video: body.video || null,
+    lien: body.lien || null,
     client: body.client || null,
     dateRealisation: body.dateRealisation || null,
     misEnAvant: body.misEnAvant || false,
