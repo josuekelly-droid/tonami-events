@@ -46,7 +46,7 @@ export function HeroSection() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.6, duration: 0.6 }}
-          className="mt-10 flex items-center justify-center gap-12 text-sm text-gray-light/60"
+          className="mt-10 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-gray-light/60"
         >
           <span>Créativité</span>
           <span className="w-1 h-1 bg-primary rounded-full" />

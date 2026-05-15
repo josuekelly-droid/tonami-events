@@ -81,7 +81,7 @@ export default function Hero() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.8, duration: 0.6 }}
-            className="mt-16 flex items-center justify-center gap-8 text-sm text-gray-medium/60"
+            className="mt-16 flex flex-wrap items-center justify-center gap-x-6 gap-y-3 text-sm text-gray-medium/60"
           >
             <div className="flex items-center gap-2">
               <span className="w-8 h-0.5 bg-primary/30 rounded-full" />
