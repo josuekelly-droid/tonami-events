@@ -23,6 +23,7 @@ export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   themeColor: "#E42425",
+  colorScheme: "light",
 };
 
 export const metadata: Metadata = {
@@ -34,7 +35,7 @@ export const metadata: Metadata = {
     template: "%s | Tonami Events",
   },
   description:
-    "Agence de communication au Bénin spécialisée en production audiovisuelle, design graphique, services numériques, conseil et formation digitale.",
+    "Agence de communication au Bénin spécialisée en production audiovisuelle, design graphique, services numériques, conseil et formation digitale. Devis gratuit.",
   keywords: [
     "agence communication",
     "production audiovisuelle",
@@ -46,14 +47,19 @@ export const metadata: Metadata = {
     "Bénin",
     "Cotonou",
   ],
-  authors: [{ name: "Tonami Communication", url: "https://tonami-events.vercel.app" }],
-    icons: {
+  authors: [{ name: "Tonami Events", url: "https://tonami-events.vercel.app" }],
+  icons: {
     icon: "/logo/tonami.png",
     shortcut: "/logo/tonami.png",
     apple: "/logo/tonami.png",
   },
   creator: "Tonami Events",
   publisher: "Tonami Events",
+  formatDetection: {
+    telephone: true,
+    email: true,
+    address: true,
+  },
   openGraph: {
     type: "website",
     locale: "fr_FR",
@@ -105,7 +111,7 @@ export default function RootLayout({
         <OrganizationSchema />
       </head>
       <body
-        className={`${inter.variable} ${poppins.variable} font-sans bg-secondary text-tertiary antialiased`}
+        className={`${inter.variable} ${poppins.variable} font-sans bg-secondary text-tertiary antialiased selection:bg-primary/20 selection:text-primary`}
       >
         <Providers>
           <Header />

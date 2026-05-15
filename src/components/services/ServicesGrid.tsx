@@ -18,6 +18,8 @@ const services = [
       "Animation 2D/3D",
     ],
     image: "/services/audiovisuel.jpg",
+    couleur: "#E42425",
+    gradient: "from-red-500/5 to-red-500/0",
   },
   {
     id: "design",
@@ -32,6 +34,8 @@ const services = [
       "Packaging et branding",
     ],
     image: "/services/design.jpg",
+    couleur: "#7C3AED",
+    gradient: "from-purple-500/5 to-purple-500/0",
   },
   {
     id: "numerique",
@@ -46,6 +50,8 @@ const services = [
       "Intégration annuaires d'affaires",
     ],
     image: "/services/numerique.jpg",
+    couleur: "#3B82F6",
+    gradient: "from-blue-500/5 to-blue-500/0",
   },
   {
     id: "conseil",
@@ -60,6 +66,8 @@ const services = [
       "Accompagnement rédactionnel",
     ],
     image: "/services/conseil.jpg",
+    couleur: "#10B981",
+    gradient: "from-emerald-500/5 to-emerald-500/0",
   },
   {
     id: "location",
@@ -74,56 +82,81 @@ const services = [
       "Drone et stabilisateurs",
     ],
     image: "/services/location.jpg",
+    couleur: "#F59E0B",
+    gradient: "from-amber-500/5 to-amber-500/0",
   },
 ];
 
 export function ServicesGrid() {
   return (
-    <section className="py-24">
+    <section className="py-24 lg:py-32 bg-gradient-to-b from-gray-light/5 to-secondary">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 gap-12">
+        <div className="grid grid-cols-1 gap-12 lg:gap-16">
           {services.map((service, index) => (
             <motion.div
               key={service.id}
-              initial={{ opacity: 0, y: 40 }}
+              initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: index * 0.1, duration: 0.6 }}
+              transition={{ delay: index * 0.1, duration: 0.7 }}
               id={service.id}
-              className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center bg-secondary border border-gray-light/30 rounded-3xl p-8 lg:p-12 hover:shadow-lg transition-shadow duration-300"
+              className="group grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center bg-secondary border border-gray-light/20 hover:border-transparent rounded-3xl p-8 lg:p-12 hover:shadow-2xl transition-all duration-500 overflow-hidden relative"
             >
-              
-              <div>
-                <h2 className="font-heading text-2xl sm:text-3xl font-bold text-tertiary mb-4">
+              <div
+                className={`absolute inset-0 bg-gradient-to-br ${service.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500`}
+              />
+
+              <div className="relative z-10">
+                <span
+                  className="inline-block text-xs font-bold px-3 py-1 rounded-full mb-4"
+                  style={{
+                    backgroundColor: `${service.couleur}15`,
+                    color: service.couleur,
+                  }}
+                >
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+                <h2 className="font-heading text-2xl sm:text-3xl lg:text-4xl font-bold text-tertiary mb-4">
                   {service.titre}
                 </h2>
-                <p className="text-gray-medium leading-relaxed mb-6">
+                <p className="text-gray-medium leading-relaxed mb-6 text-lg">
                   {service.description}
                 </p>
-                <ul className="space-y-2 mb-6">
+                <ul className="space-y-3 mb-8">
                   {service.details.map((detail) => (
                     <li
                       key={detail}
-                      className="flex items-start gap-2 text-sm text-gray-medium"
+                      className="flex items-start gap-3 text-sm text-gray-medium"
                     >
-                      <span className="text-primary mt-0.5">•</span>
+                      <span
+                        className="w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5"
+                        style={{
+                          backgroundColor: `${service.couleur}15`,
+                          color: service.couleur,
+                        }}
+                      >
+                        ✓
+                      </span>
                       {detail}
                     </li>
                   ))}
                 </ul>
 
-                
                 <div className="flex flex-col sm:flex-row gap-3">
                   <Link
                     href={`/services/${service.id}`}
-                    className="inline-flex items-center justify-center gap-2 bg-primary text-secondary px-6 py-3 rounded-lg font-semibold hover:bg-primary/90 transition-colors duration-200 text-sm"
+                    className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl font-semibold text-sm transition-all duration-300 hover:gap-3"
+                    style={{
+                      backgroundColor: service.couleur,
+                      color: "#FFFFFF",
+                    }}
                   >
                     En savoir plus
                     <span>→</span>
                   </Link>
                   <Link
                     href="/contact"
-                    className="inline-flex items-center justify-center gap-2 border border-tertiary text-tertiary px-6 py-3 rounded-lg font-semibold hover:bg-tertiary hover:text-secondary transition-colors duration-200 text-sm"
+                    className="inline-flex items-center justify-center gap-2 border-2 border-tertiary/20 text-tertiary px-6 py-3.5 rounded-xl font-semibold text-sm hover:border-primary hover:text-primary transition-all duration-300"
                   >
                     Demander un devis
                     <span>→</span>
@@ -131,15 +164,15 @@ export function ServicesGrid() {
                 </div>
               </div>
 
-              
-              <div className="relative rounded-2xl overflow-hidden aspect-video bg-gray-light/20">
+              <div className="relative rounded-3xl overflow-hidden aspect-[4/3] bg-gray-light/10 group/img">
                 <Image
                   src={service.image}
                   alt={service.titre}
                   fill
-                  className="object-cover hover:scale-105 transition-transform duration-500"
+                  className="object-cover group-hover/img:scale-110 transition-transform duration-700"
                   sizes="(max-width: 1024px) 100vw, 50vw"
                 />
+                <div className="absolute inset-0 bg-gradient-to-t from-tertiary/20 to-transparent opacity-0 group-hover/img:opacity-100 transition-opacity duration-500" />
               </div>
             </motion.div>
           ))}
